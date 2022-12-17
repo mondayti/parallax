@@ -120,7 +120,7 @@ const helpers = {
         }
       }
     }
-    element.style[jsProperty] = value
+    element.style.cssText += `${jsProperty}: ${value}`;
   }
 
 }
@@ -418,13 +418,35 @@ class Parallax {
     this.updateDimensions()
   }
 
+  getAngle (element) {
+    const tr = window.getComputedStyle(element, null)['transform'];
+    let values = [0];
+    try {
+      values = tr.split('(')[1];
+      values = values.split(')')[0];
+      values = values.split(',');
+    }catch(err) {
+      
+    }
+    
+    const b = values && values[1];
+
+    const angle = Math.round(Math.asin(b) * (180/Math.PI));
+
+    return angle;
+
+  }
+
   setPosition(element, x, y) {
+    const angle = this.getAngle(element);
+
     x = x.toFixed(this.precision) + 'px'
     y = y.toFixed(this.precision) + 'px'
     if (this.transform3DSupport) {
-      helpers.css(element, 'transform', 'translate3d(' + x + ',' + y + ',0)')
+      helpers.css(element, 'transform', `translate3d(${x}, ${y}, 0) rotate(${angle}deg) !important`);
     } else if (this.transform2DSupport) {
-      helpers.css(element, 'transform', 'translate(' + x + ',' + y + ')')
+      helpers.css(element, 'transform', `translate(${x}, ${y}) rotate(${angle}deg)`);
+      helpers.css(element)
     } else {
       element.style.left = x
       element.style.top = y

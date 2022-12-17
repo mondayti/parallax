@@ -110,7 +110,6 @@ button {
 
 @for $i from 1 through 6 {
   .scene > *:nth-child(#{$i}) {
-    opacity: #{0.15 * $i};
 
     button {
       transform: rotate(#{180 - 30 * $i}deg)
