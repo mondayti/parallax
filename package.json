@@ -21,6 +21,9 @@
     "javascript",
     "library"
   ],
+  "resolutions": {
+    "graceful-fs": "^4.2.10"
+  },
   "bugs": {
     "url": "https://github.com/wagerfield/parallax/issues"
   },
