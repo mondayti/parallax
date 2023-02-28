@@ -849,15 +849,14 @@ var Parallax = function () {
   }, {
     key: 'setPosition',
     value: function setPosition(element, x, y) {
-      var angle = this.getAngle(element) || 0;
+      var angle = this.getAngle(element);
 
       x = x.toFixed(this.precision) + 'px';
       y = y.toFixed(this.precision) + 'px';
       if (this.transform3DSupport) {
         helpers.css(element, 'transform', 'translate3d(' + x + ', ' + y + ', 0) rotate(' + angle + 'deg) !important');
-        console.log(angle);
       } else if (this.transform2DSupport) {
-        helpers.css(element, 'transform', 'translate(' + x + ', ' + y + ') rotate(' + angle + 'deg) !important');
+        helpers.css(element, 'transform', 'translate(' + x + ', ' + y + ') rotate(' + angle + 'deg)');
         helpers.css(element);
       } else {
         element.style.left = x;
